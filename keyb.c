@@ -7,6 +7,7 @@ void set_raw_mode() {
     struct termios term;
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~(ICANON | ECHO);
+	term.c_lflag &= ~ISIG; /* ^C and ^Z do not generate signals */
     tcsetattr(STDIN_FILENO, TCSAFLUSH, &term);
 }
 
